@@ -169,7 +169,7 @@ jobs:
           id: deploy-to-azure
           uses: azure/webapps-deploy@v3
           with: 
-            app-name: ${{ vars.AZUREAPPSERVICE_WEBAPPNAME }}
+            app-name: ${{ secrets.AZUREAPPSERVICE_WEBAPPNAME }}
             package: .
             
   deploy-app:
