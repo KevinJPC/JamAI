@@ -1,0 +1,49 @@
+###  GET SONGS
+
+@getSongs__continuationToken = 
+GET http://localhost:8080/api/songs
+    ?continuationToken={{getSongs__continuationToken}} HTTP/1.1
+Accept: application/json
+
+### GET SONG DETAIL
+
+@getSong__songId = 6933860e7df31ef0c50e6c35
+GET http://localhost:8080/api/songs/{{getSong__songId}} HTTP/1.1
+Accept: application/json
+
+### GET SONG VERSION
+
+@getSongVersion__songId = 6934de3c57d3b3286365268b
+@getSongVersion__versionId = 6934de3c57d3b3286365268a
+
+GET http://localhost:8080/api/songs/{{getSongVersion__songId}}/versions/{{getSongVersion__versionId}} HTTP/1.1
+Accept: application/json
+
+### GET SONG VERSIONS
+
+@getSongVersions__songId = 6934de3c57d3b3286365268b
+
+GET http://localhost:8080/api/songs/{{getSongVersions__songId}}/versions HTTP/1.1
+Accept: application/json
+
+
+
+### GET YOUTUBE SEARCH RESULTS WITH SONGS
+
+@getYoutubeResultsWithSongs_query = washed up nf
+
+GET http://localhost:8080/api/songs/search/youtube?q={{getYoutubeResultsWithSongs_query}} HTTP/1.1
+Accept: application/json
+
+
+### FAVORITE SONG
+
+@favoriteSong__songId = 692b9921a76ea84414a53db0
+POST http://localhost:8080/api/songs/{{favoriteSong__songId}}/favorites HTTP/1.1
+Accept: application/json
+
+### UNFAVORITE SONG
+
+@unfavoriteSong__songId = 692b9921a76ea84414a53db0
+DELETE http://localhost:8080/api/songs/{{unfavoriteSong__songId}}/favorites HTTP/1.1
+Accept: application/json

@@ -1,0 +1,22 @@
+.value-adjuster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --display-value-width: 30px;
+  user-select: none;
+}
+
+.value-adjuster__button {
+  height: auto;
+  padding: .0rem;
+}
+
+.value-adjuster__display-value {
+  font-weight: 400;
+  width: var(--display-value-width);
+  text-align: center;
+  font-size: var(--text-md);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}

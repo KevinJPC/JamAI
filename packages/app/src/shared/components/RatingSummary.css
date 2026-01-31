@@ -1,0 +1,26 @@
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    justify-content: center;
+    font-size: var(--text-md);
+    text-wrap: nowrap;
+}
+
+.rating-summary__average {
+    margin-right: .1rem;
+}
+
+.rating-summary__count-wrapper {
+    color: rgba(var(--white), .6);
+
+}
+
+.rating-summary__count {
+    vertical-align: bottom;
+    display: inline-block;
+    max-width: 7ch;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}

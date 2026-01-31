@@ -1,0 +1,23 @@
+.chords-view {
+  position: relative;
+  --grid-margin-top: 1rem;
+}
+
+.chords-view__toolbar-wrapper {
+  position: sticky;
+  top: 0;
+  height: 50px;
+  box-shadow: 0px calc(var(--grid-margin-top)/2) 10px 0px rgba(var(--black), .8);
+}
+
+.chords-view__grid-wrapper {
+  margin: 0 auto;
+  margin-top: var(--grid-margin-top);
+  padding: 1px .5rem;
+}
+
+@media (width <=45.0rem) { 
+  .chords-view__grid-wrapper {
+    padding: 1px .25rem;
+  }
+}

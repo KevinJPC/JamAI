@@ -1,0 +1,14 @@
+.dialog__message {
+    font-size: var(--text-md);
+    margin-bottom: 1rem;
+}
+.dialog__buttons-wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+
+.dialog__buttons {
+    flex: 0 1 80px;
+}

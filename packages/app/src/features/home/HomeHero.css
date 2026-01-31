@@ -1,0 +1,40 @@
+.landing__content {
+  padding-top: 8rem;
+  display: flex;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: start;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.landing__title {
+  font-weight: 500;
+  color: rgba(var(--white));
+  text-align: center;
+  text-wrap: balance;
+  font-size: 2.5rem;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.landing__accent {
+  color: rgba(var(--purple), 1);
+}
+
+.landing__description-accent {
+  font-weight: 300;
+  color: rgba(var(--white), 1);
+}
+
+.landing__description {
+  max-width: 55ch;
+  color: rgba(var(--white), .7);
+  font-weight: 300;
+  font-size: var(--text-lg);
+  text-align: center;
+  text-wrap: pretty;
+  line-height: 1.5;
+}
+

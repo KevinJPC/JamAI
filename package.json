@@ -1,0 +1,27 @@
+{
+  "name": "chords-extractor",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "packages/app",
+    "packages/api",
+    "packages/common",
+    "packages/db-migrations"
+  ],
+  "scripts": {
+    "app": "npm --workspace=@chords-extractor/app run",
+    "api": "npm --workspace=@chords-extractor/api run",
+    "db-migrations": "npm --workspace=@chords-extractor/db-migrations run",
+    "prepare": "husky || true",
+    "pre-commit": "npm run pre-commit --if-present --workspaces"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "ignorePatterns": [
+    "packages/analyzer-api"
+  ],
+  "devDependencies": {
+    "husky": "9.1.7"
+  }
+}

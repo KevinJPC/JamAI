@@ -1,0 +1,12 @@
+.chords-views {
+    display: flex;
+    gap: var(--space-md);
+    flex-direction: column;
+}
+
+.chords-views__labels-wrapper {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    flex-wrap: wrap;
+}

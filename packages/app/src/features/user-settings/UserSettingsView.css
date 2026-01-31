@@ -1,0 +1,33 @@
+.user-settings-view {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space-md);
+}
+
+.user-settings-view__title {
+    font-size: var(--text-lg);
+    font-weight: var(--fw-bold);
+}
+
+.user-settings-view__legend {
+    margin-top: var(--space-sm);
+    font-size: var(--text-md);
+    color: rgba(var(--white), .8);
+}
+
+.user-settings-view__section {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.user-settings-view__secondary-title {
+    font-size: var(--text-md);
+    font-weight: var(--fw-bold);
+    flex: 0 1 300px;
+}
+
+.user-settings-view__form {
+    flex: 1 1 500px;
+}

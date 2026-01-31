@@ -1,0 +1,221 @@
+/* 4 beats per bar */
+.chords-grid {
+  display: grid;
+  gap: 4px;
+  align-items: stretch;
+  justify-items: stretch;
+  list-style: none;
+
+  font-size: clamp(.85rem, 3vw, 1rem);
+  line-height: 1;
+  user-select: none;
+  color: rgba(var(--white));
+  
+  /* content-visibility resets scroll when switching between tabs */
+  /* content-visibility: auto; */
+  /* show full outline of chords */
+}
+
+.chord__skeleton, .chord {
+  position: relative;
+}
+
+/* ***************************** CHORDS AND BEATS LAYOUT (BASED ON TIME SIGNATURE) ************************************************* */
+
+.chords-grid--time-signature-4-4 {
+  grid-template-columns: repeat(16, 1fr);
+}
+
+.chords-grid--time-signature-3-4 {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* ***************************** BAR DIVISOR (BASED ON TIME SIGNATURE) ************************************************* */
+.chords-grid--time-signature-4-4 .chord:nth-child(4n)::after, .chords-grid--time-signature-3-4 .chord:nth-child(3n)::after  {
+  content: "";
+  position: absolute; 
+  border: 1px solid rgba(var(--purple),.35);
+  float: left;
+  display: flex;
+  height: calc(90%);
+  right: -4px;
+  border-radius: 999px;
+  top: 50%;
+  transform: translate(50%, -50%);
+  user-select: none;
+}
+
+  /* 4/4 */
+.chords-grid--time-signature-4-4 .chord:nth-child(16n)::after { 
+  content: none;
+}
+
+.chords-grid--time-signature-4-4 .chord:nth-child(4n)  {
+  margin-right: 4px;
+}
+
+.chords-grid--time-signature-4-4 .chord:nth-child(16n)  {
+  margin-right: 0px;
+}
+
+/* 3/4 */
+.chords-grid--time-signature-3-4 .chord:nth-child(12n)::after { 
+    content: none;
+}
+  
+.chords-grid--time-signature-3-4 .chord:nth-child(3n)  {
+    margin-right: 4px;
+  }
+  
+.chords-grid--time-signature-3-4 .chord:nth-child(12n)  {
+    margin-right: 0px;
+}
+
+/* *************************** CHORD ************************************** */
+.chord {
+  position: relative;
+  aspect-ratio: 1/1;
+
+  cursor: pointer;
+  
+  background-color: rgba(var(--blue-100),1);
+  outline: 1px solid rgba(var(--blue-170), .85);
+  border-radius: 3px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.chord--current {
+  background-color: rgba(var(--blue-170));
+  outline: 1px solid rgba(var(--blue-170));
+}
+.chord--editing {
+   outline: 1px solid rgba(var(--purple), .35);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chord:hover:not(.chord--current):not(.chord--skeleton):not(.chord--fake) {
+    background-color: rgba(var(--blue-200), .5);
+  }  
+}
+
+.chord__wrapper {
+  max-width: 90%;
+  width: fit-content;
+  overflow-x: clip;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 400;
+  letter-spacing: .03em;
+}
+
+.bass-note-divisor::after {
+  content: "";
+  position: absolute;
+  width: 90%;
+  border: 1px solid rgba(var(--white));
+  bottom: 50%;
+  left: 50%;
+  background-color: rgba(var(--white));
+  opacity: .6;
+  transform: translate(-50%, 50%);
+  border-end-end-radius: 999px;
+  border-radius: 999px;
+}
+
+.chord__signature {
+  opacity: .7;
+}
+
+.chord__type {
+  opacity: .7;
+}
+
+.chord__descriptor {
+  font-weight: 300;
+  opacity: .7;
+  font-size: .8em;
+}
+
+/* *********************** CHORD SKELETON COLOR STYLES *************************************** */
+
+.chord--skeleton {
+  outline-color: rgba(var(--gray));
+  background-color: rgba(var(--gray));
+}
+
+.chords-grid--time-signature-4-4 .chord--skeleton:nth-child(4n)::after {
+  border-color: rgba(var(--gray));
+  background-color: rgba(var(--gray));
+}
+
+.chord--fake {
+  opacity: .6;
+}
+
+@media (width < 80.37rem) {
+  
+  /* 4 beats per bar */
+  
+  .chords-grid--time-signature-4-4 {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .chords-grid--time-signature-4-4 .chord:nth-child(8n)::after { 
+    content: none;
+  }
+  .chords-grid--time-signature-4-4 .chord:nth-child(8n)  {
+    margin-right: 0px;
+  }
+
+  /* 3 beats per bar */
+
+  .chords-grid--time-signature-3-4 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .chords-grid--time-signature-3-4 .chord:nth-child(6n)::after { 
+    content: none;
+  }
+  .chords-grid--time-signature-3-4 .chord:nth-child(6n)  {
+    margin-right: 0px;
+  }
+}
+
+@media (width < 20.25rem) {
+  
+  /* 4 beats per bar */
+  
+  .chords-grid--time-signature-4-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .chords-grid--time-signature-4-4 .chord:nth-child(4n)::after { 
+    content: none;
+  }
+  .chords-grid--time-signature-4-4 .chord:nth-child(4n)  {
+    margin-right: 0px;
+  }
+
+  /* 3 beats per bar */
+  
+  .chords-grid--time-signature-3-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .chords-grid--time-signature-3-4 .chord:nth-child(3n)::after { 
+    content: none;
+  }
+  .chords-grid--time-signature-3-4 .chord:nth-child(3n)  {
+    margin-right: 0px;
+  }
+}
+
+.chords-grid .chord:last-child::after {
+  content: none;
+}
+
+

@@ -1,0 +1,40 @@
+.collapsed-box {
+    position: relative;
+    interpolate-size: allow-keywords;
+    transition: height .3s ease;
+    overflow: hidden;
+  }
+  
+  .collapsed-box[data-is-open="false"] {
+    height: 150px;
+  }
+  
+  .collapsed-box::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(var(--blue-100)) 80%);
+    pointer-events: none;
+    opacity: 0;
+    transition: .3s opacity ease;
+  }
+  
+  .collapsed-box[data-is-open="false"]::before {
+    opacity: 1;
+  }
+  
+  .collapsed-box[data-is-open="true"] {
+    height: auto;
+  }
+  
+  .collapsed-box__button {
+    margin: 0 auto;
+    width: fit-content;
+    position: sticky;
+    bottom: 0;
+    margin-top: 1rem;
+  }
+  

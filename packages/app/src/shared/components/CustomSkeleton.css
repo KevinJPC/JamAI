@@ -1,0 +1,32 @@
+.custom-skeleton {
+  z-index: 0;
+  --base-color: rgba(var(--gray));
+  line-height: unset !important;
+  border-radius: 5px;
+}
+
+.custom-skeleton-container {
+  line-height: unset !important;
+  display: flex;
+}
+
+.custom-skeleton-container--flex {
+  flex: 1;
+}
+
+.custom-skeleton-container--full-w {
+  width: 100%;
+}
+
+.custom-skeleton-container--full-h {
+  height: 100%;
+}
+
+.custom-skeleton--brighter {
+  --base-color: rgba(var(--gray-100));
+}
+
+.custom-skeleton-container-box {
+  background-color: rgba(var(--gray));
+  border-radius: 5px;
+}

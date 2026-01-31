@@ -1,0 +1,15 @@
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sign-up-form__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+  }
+  
+  .sign-up-form__button {
+    flex: 0 1 100px;
+  }

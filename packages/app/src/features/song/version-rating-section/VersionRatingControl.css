@@ -1,0 +1,53 @@
+.version-rating-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.version-rating-control__description {
+    flex: 1 1 80px;
+    font-size: var(--text-md);
+    color: rgba(var(--white), 1);
+
+    /* 
+    ** Caps height to the maximum expect buttons height so ui 
+    ** doesnt shift even tho text might overflow a bit but is 
+    ** fine 
+    */
+    max-height: 35px;
+    overflow: visible; 
+}
+
+
+.version-rating-control__stars-wrapper {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 5px;
+}
+
+.version-rating-control__star-button {
+    width: 35px;
+    aspect-ratio: 1/1;
+    background-color: rgba(var(--blue-200), .5);
+    color: rgba(var(--white), .5);
+}
+
+.version-rating-control__star-button--filled{
+    background-color: rgba(var(--blue-200), 1);
+    color: rgba(var(--white), 1);
+}
+ 
+@media (hover: hover) and (pointer: fine) {
+    .version-rating-control__star-button:not(.version-rating-control__star-button:disabled):hover {
+        color: rgba(var(--white), .5);
+    }
+
+    .version-rating-control__star-button--filled:not(.version-rating-control__star-button--filled:disabled):hover {
+        color: rgba(var(--white), 1);
+    }
+}
+

@@ -1,0 +1,21 @@
+{
+  "name": "@chords-extractor/db-migrations",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "migrate-mongo",
+    "migrate:up": "migrate-mongo up",
+    "migrate:dev": "DOTENV_CONFIG_PATH=./../../.env NODE_OPTIONS='-r dotenv/config' migrate-mongo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "17.2.3",
+    "migrate-mongo": "14.0.7",
+    "mongodb": "6.3.0",
+    "zod": "3.23.8"
+  }
+}

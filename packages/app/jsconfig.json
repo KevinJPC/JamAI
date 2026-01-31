@@ -1,0 +1,14 @@
+{
+    "compilerOptions": { 
+        "baseUrl": ".",
+        // needed for vscode to recognize local packages with exports syntax  
+        "moduleResolution": "bundler",
+        "module": "es2022",
+        // needed for vscode to recognize aliases
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        }
+    }
+}

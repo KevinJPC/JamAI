@@ -1,0 +1,10 @@
+###  RATE VERSION
+
+@rateVersion_versionId = 6934de3c57d3b3286365268a
+POST http://localhost:8080/api/versions/{{rateVersion_versionId}}/ratings HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "rating": 3
+}

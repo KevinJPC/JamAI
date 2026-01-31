@@ -1,0 +1,28 @@
+.text-input__label {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    font-size: var(--text-md);
+    font-weight: 400;
+}
+
+.text-input__input {
+    border-radius: 5px;
+    border: 1px solid rgba(var(--blue-100));
+    background-color: rgba(var(--blue-170), 1);
+    padding: .4rem .5rem;
+    border: none;
+}
+
+.text-input__input:focus {
+    outline: 1px solid rgba(var(--blue-250));
+}
+
+.text-input__input::placeholder {
+    color: rgba(var(--white), .6);
+}
+
+.text-input__input:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}

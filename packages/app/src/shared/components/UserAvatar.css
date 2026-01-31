@@ -1,0 +1,11 @@
+.user-avatar {
+    display: grid;
+    place-content: center;
+    background-color: rgba(var(--blue-100));
+    border: 1px solid rgba(var(--blue-170));
+    aspect-ratio: 1/1;
+    height: 100%;
+    border-radius: 50%;
+    color: rgba(var(--white));
+    user-select: none;
+}

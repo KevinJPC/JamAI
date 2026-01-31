@@ -1,0 +1,16 @@
+.link { }
+
+.link--decorator {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(var(--purple));
+  text-underline-offset: 2px;
+
+  transition: opacity .1s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link--decorator:hover {
+    opacity: .8;
+  }
+}

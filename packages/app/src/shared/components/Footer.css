@@ -1,0 +1,13 @@
+.footer {
+    font-size: var(--text-md);
+    height: 80px;
+
+    gap: var(--space-md);
+
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+    width: 100%;
+    color: rgba(var(--white), .8);
+}

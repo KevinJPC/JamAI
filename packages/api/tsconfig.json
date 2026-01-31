@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "skipLibCheck": true,
+    "lib": ["ES2023"],
+    "target": "ES2023",
+
+    // stricness
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "allowJs": true,
+
+    // bundler
+    "moduleResolution": "bundler",
+    "module": "EsNext",
+    "noEmit": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src/**/*"]
+}
+

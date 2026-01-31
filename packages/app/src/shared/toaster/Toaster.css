@@ -1,0 +1,147 @@
+.Toastify__toast-container {
+}
+
+.Toastify__toast {
+  border-radius: 10px;
+  background-color: rgba(var(--blue-150));
+  outline: 1px solid rgba(var(--blue-170));
+ padding: 0 1rem;
+ --toastify-toast-min-height: 45px;
+ margin: 0;
+ font-family: lato;
+ font-size: var(--text-md);
+ color: rgba(var(--white));
+ /* --toastify-toast-max-height: 100px */
+}
+
+.Toastify__toast-icon {
+  margin-right: .8rem;
+  width: 18px;
+}
+
+.Toastify__toast + .Toastify__toast {
+  --toast-margin-top: .8rem;
+  margin-top: var(--toast-margin-top);
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+}
+
+.Toastify__progress-bar--wrp {
+  height: 1px;
+}
+
+.Toastify__close-button {
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.Toastify__close-button > svg {
+  fill: rgba(var(--purple));
+}
+
+/* enter and exit animation && diferent animation on swipe */
+
+.toast__slide-in--bottom-right {
+  animation: slideIn .5s cubic-bezier(0.65,0.05,0.36,1);  
+}
+
+.toast__slide-out--bottom-right {
+  animation: slideOut .5s cubic-bezier(0.65,0.05,0.36,1);
+}
+
+/* The swipe animation ensures a smooth transition for the remaining toasts
+** when one is removed by collapsing its height and margin to 0. This provides a seamless
+**  shift in position for the remaining toasts without animating the removed toast itself,
+** as it will no longer be visible on the screen. */
+.toast__slide-out--bottom-right-swipe {
+  animation: slideOutSwipe .5s cubic-bezier(0.65,0.05,0.36,1);
+}
+
+@keyframes slideIn {
+  0% {
+    min-height: 0px;
+    max-height: 0px;
+    height: 0px;
+    margin-top: 0px;
+    /* transform: translateY(200%); */
+    transform: translateY(200%) scaleX(0%);
+    opacity: 0;
+  }
+
+  50% {
+    min-height: var(--toastify-toast-min-height);
+    max-height: var(--toastify-toast-max-height);
+    margin-top: var(--toast-margin-top);
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    /* transform: translateY(0%); */
+    transform: translateY(0%) scaleX(100%);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0%) scaleX(100%);
+    opacity: 1;
+    min-height: var(--toastify-toast-min-height);
+    max-height: var(--toastify-toast-max-height);
+    margin-top: var(--toast-margin-top);
+  }
+
+  60% {
+    opacity: 0;
+  }
+  
+  80% {
+    transform: translateY(200%) scaleX(0%);
+    margin-top: 0px;
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(200%) scaleX(0%);
+    opacity: 0;
+    margin-top: 0px;
+    min-height: 0px;
+    max-height: 0px;
+    height: 0px;
+  }
+}
+
+@keyframes slideOutSwipe {
+  0% {
+    opacity: 0;
+    min-height: var(--toastify-toast-min-height);
+    max-height: var(--toastify-toast-max-height);
+    margin-top: var(--toast-margin-top);
+  }
+
+  100% {
+    opacity: 0;
+    margin-top: 0px;
+    min-height: 0px;
+    max-height: 0px;
+    height: 0px;
+  }
+}
+
+@media (width <= 480px) {
+  .Toastify__toast-container {
+    width: auto;
+    left: 0;
+    right: 0;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    padding-bottom: 5vw;
+  }
+}

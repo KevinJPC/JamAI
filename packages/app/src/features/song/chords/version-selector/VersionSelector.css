@@ -1,0 +1,22 @@
+/* modal */
+.version-selector-modal__body {
+    height: 400px;
+    overflow: auto;
+}
+
+.version-selector-modal__button {
+    gap: .5rem;
+}
+
+.version-selector-modal__button-text {
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+
+.version-selector-modal__infinity-scroll-skeleton {
+    margin-top: .5rem;
+}
+

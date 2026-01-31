@@ -1,0 +1,28 @@
+.profile-menu {
+    font-size: var(--text-md);
+    list-style: none;
+    border: 1px solid rgba(var(--blue-170));
+    background-color: rgba(var(--blue-100));
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: .3rem;
+}
+
+.profile-menu__item-action {
+    display: block;
+    padding: .2rem .5rem;
+    width: 100%;
+    height: auto;
+    color: rgba(var(--white));
+    border-radius: 3px;
+    text-align: start;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .profile-menu__item-action:hover {
+        background-color: rgba(var(--blue-170));
+    }
+}

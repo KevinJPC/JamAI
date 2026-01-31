@@ -1,0 +1,22 @@
+.spinner {
+  display: inline-block;
+  --color: rgba(var(--white));
+  --thickness: 2px;
+  --size: 24px;
+  height: var(--size);
+  width: var(--size);
+  border: var(--thickness) solid var(--color);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+  box-sizing: border-box;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotateZ(0deg);
+    }
+    to {
+      transform: rotateZ(360deg);
+    }
+  } 

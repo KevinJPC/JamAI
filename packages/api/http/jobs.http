@@ -1,0 +1,11 @@
+POST http://localhost:8080/api/jobs
+content-type: application/json
+
+{
+    "youtubeId": "LqYIKYEnX7Y",
+    "overrideIfExists": true
+}
+###
+
+GET http://localhost:8080/api/jobs/LqYIKYEnX7Y
+content-type: application/json

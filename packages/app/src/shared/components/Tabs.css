@@ -1,0 +1,34 @@
+.tabs {
+}
+
+.tabs__labels {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  background-color: rgba(var(--blue-100), 1);
+  padding: .3rem;
+  border-radius: .5rem;
+  border: 1px solid rgba(var(--blue-170));
+}
+
+.tabs__label-button {
+  flex: 1 1 content;
+  border-radius: .3rem;
+  padding: .3rem .7rem;
+  background-color: transparent;
+  transition: background-color .2s ease-out, color .2s ease; 
+}
+
+.tabs__label-button[data-pending="true"] {
+  color: rgba(var(--white), .7);
+}
+
+.tabs__label-button:disabled {
+  color: rgba(var(--white), .4);
+}
+
+.tabs__label-button[data-active="true"] {
+  background-color: rgba(var(--blue-200));
+  opacity: 1;
+}

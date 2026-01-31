@@ -1,0 +1,30 @@
+.switch-button-wrapper {
+  position: relative;
+  /* display: inline-block; */
+}
+
+.switch-button {
+  border-radius: 5px;
+  opacity: .5;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch-button__input {
+  display: none;
+}
+
+.switch-button__input:checked  +  .switch-button{
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .switch-button:hover {
+    cursor: pointer;
+  }
+
+  .switch-button__input:checked  +  .switch-button:hover{
+  }
+}

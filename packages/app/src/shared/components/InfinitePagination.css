@@ -1,0 +1,16 @@
+.infinite-pagination-wrapper {    
+}
+
+.infinite-pagination-wrapper--error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+
+.infinite-pagination__error-message {
+    font-size: var(--text-md);
+    color: rgba(var(--white), .8);
+}

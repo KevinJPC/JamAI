@@ -1,0 +1,9 @@
+.logo {
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: rgba(var(--white));
+  }
+  
+  .logo__accent {
+    color: rgba(var(--purple));
+  }

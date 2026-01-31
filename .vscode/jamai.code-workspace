@@ -1,0 +1,32 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": "./../"
+        },
+        {
+            "name": "analyzer-api",
+            "path": "./../packages/analyzer-api"
+        },
+        {
+            "name": "app",
+            "path": "./../packages/app"
+        },
+        {
+            "name": "api",
+            "path": "./../packages/api"
+        },
+        {
+            "name": "common",
+            "path": "./../packages/common"
+        },
+        {
+            "name": "db-migrations",
+            "path": "./../packages/db-migrations"
+        }
+    ],
+    "settings": {
+        "git.enabled": true,
+        "git.ignoreLimitWarning": true,
+    }
+}

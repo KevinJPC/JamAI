@@ -1,0 +1,44 @@
+{
+  "name": "@chords-extractor/app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev-host": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview-host": "vite preview --host",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "pre-commit": "sh ./scripts/pre-commit.sh"
+  },
+  "dependencies": {
+    "@chords-extractor/common": "1.0.0",
+    "@floating-ui/react-dom": "2.0.8",
+    "@tanstack/react-query": "5.90.16",
+    "@tanstack/react-query-devtools": "5.62.8",
+    "classnames": "2.5.1",
+    "express": "4.22.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-error-boundary": "6.0.0",
+    "react-loading-skeleton": "3.3.1",
+    "react-player": "3.4.0",
+    "react-toastify": "10.0.6",
+    "undici": "7.19.0",
+    "wouter": "3.9.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/config-helpers": "0.4.2",
+    "@types/react": "18.2.43",
+    "@types/react-dom": "18.2.17",
+    "@vitejs/plugin-basic-ssl": "2.1.0",
+    "@vitejs/plugin-react-swc": "4.1.0",
+    "eslint": "9.39.1",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "neostandard": "0.12.2",
+    "vite": "7.3.1"
+  }
+}

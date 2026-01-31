@@ -1,0 +1,14 @@
+GET http://localhost:5000/api/test HTTP/1.1
+content-type: application/json
+
+
+###
+
+POST http://localhost:5000/api/analyze HTTP/1.1
+content-type: application/json
+
+{
+    "youtube_id": "9sE5kEnitqE"
+}
+
+###

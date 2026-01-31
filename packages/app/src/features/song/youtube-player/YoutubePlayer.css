@@ -1,0 +1,54 @@
+.player-wrapper {  
+  display: grid;
+  width: 100%;
+
+  border-radius: 5px;
+  border: 1px solid rgba(var(--blue-170),1);
+
+  background-color: rgba(var(--blue-100),1);
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+}
+
+/* PLAYER */
+  
+.player {
+  min-height: 0;
+  background-color: rgba(var(--blue-100),1);
+}
+
+/* PLAYER SKELETON */
+  
+.player__skeleton {
+  background-color: rgba(var(--gray), 1);
+}
+
+/* ERROR PANEL */
+
+.player__error {
+  background-color: rgba(var(--gray));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+  
+.player__error-message {
+  text-align: center;
+  max-width: 40ch;
+  font-size: var(--text-sm);
+}
+
+.player, .player__skeleton, .player__error {
+  grid-area: 1/1;
+  z-index: 1;
+}
+
+.player__skeleton, .player__error {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,38 @@
+# This setup MongoDB and Redis for development purposes.
+name: "jamai"
+services:
+  mongo:
+    image: mongo:7.0
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - 27017:27017
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    volumes:
+      - "mongo_data:/data/db"
+      - "mongo_config:/data/configdb"
+  redis:
+    image: redis:7.4.1-alpine
+    volumes:
+      - redis_volume_data:/data
+    ports:
+     - 6379:6379
+  # redis_insight:
+  #   image: redislabs/redisinsight:latest
+  #   restart: always
+  #   ports:
+  #     - 8001:8001
+  #   volumes:
+  #     - redis_insight_volume_data:/db
+volumes:
+  mongo_data:
+  mongo_config:
+  redis_volume_data:
+  # redis_insight_volume_data:

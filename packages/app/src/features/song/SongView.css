@@ -1,0 +1,128 @@
+.song {
+  max-width: 1500px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr clamp(12.5rem, 25vw, 25rem);
+  grid-template-rows: repeat(2, min-content) 1fr;
+  column-gap: 2rem;
+  width: 95%;
+  align-items: start;
+  position: relative;
+
+  --song__row-gap: 1rem;
+  row-gap: var(--song__row-gap);
+
+  --song__header-height: 24px;
+  --song__header-sticky-top: calc(-1px);
+  --song__player-sticky-top: calc(-1px);
+  --song__toolbar-sticky-top: calc(var(--song__header-sticky-top) + var(--song__header-height) + var(--song__row-gap));
+}
+
+/*
+** uses padding and margin to cover gaps so content below doesnt show up
+** this way the top ones sticky elements can start at 0px while still having a separation from the top visually
+** sticky elements below others sticky elements can start right after them providing a fake visual separation
+** that covers other content below them
+*/
+
+.song__sticky-element {
+  position: sticky;
+  z-index: 1;
+  
+  /*
+  ** switchs elements to context-box so padding is not included as part of the size (width and height) 
+  ** and only the content is 
+  */
+  box-sizing: content-box;
+  
+  padding-top: calc(var(--song__row-gap));
+  margin-top: calc(-1 * var(--song__row-gap));
+  
+  background-color: rgba(var(--black));
+}
+
+.song__header {
+  top: var(--song__header-sticky-top);
+  grid-row: 1;
+  grid-column: 1;
+  height: calc(var(--song__header-height));
+  z-index: 2;
+}
+
+.song__chords-views {
+  grid-row: 2/-1;
+}
+
+.song__chords-views-toolbar {
+  top: var(--song__toolbar-sticky-top);
+}
+
+.song__sidebar {
+  grid-row: 1/-1;
+  grid-column: 2;
+  
+  top: var(--song__player-sticky-top);
+
+  display: grid;
+  grid-row: repeat(5, auto);
+  gap: 1rem;
+}
+
+.song__player {
+  top: var(--song__player-sticky-top);
+}
+
+/* Mobile styles */
+
+@media (width <=45.0rem) {
+    .song {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(6, auto);
+
+      /* 
+      ** hard coded width to calc height based on aspect ratio
+      ** parent uses 95% width of the page so 95vw - scrollbar width is the same value
+      ** this is true unless parent is wrapped in another container that have some kinda spacing around,
+      ** for example a layout.
+      *
+      ** Even tho this works fine for now, a most reliable solution, which can be easily implemented,
+      ** would be tracking the height of the player wrapper using js 
+       */
+      --song__player-height: calc((95vw - var(--scrollbar-width)) * (9 / 16));
+      --song__toolbar-sticky-top: calc(var(--song__player-sticky-top) + var(--song__player-height) + (var(--song__row-gap) / 2) + 1px);
+    }
+
+    .song__sidebar {
+      /* doesnt generate a box, so the view main layout can take the children */
+      display: contents;
+    }
+
+    .song__header
+    .song__player, 
+    .song__details-section,
+    .song__chords-views,
+    .song__version-rating-section,
+    .song__latest-songs-section,
+    .song__interactions-section {
+      grid-row: auto;
+      grid-column: 1;
+    }
+
+    .song__header {
+      position: static;
+      z-index: 0;
+    }
+
+    .song__player {
+      z-index: 2;
+    }
+
+    .song__version-rating-section {
+      grid-row: -2;
+    }
+
+    .song__latest-songs-section {
+      grid-row: -1;
+    }
+  }
