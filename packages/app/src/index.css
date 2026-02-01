@@ -18,7 +18,7 @@
   font-family: 'Open Sans';
   src: 
     local('Open Sans'),
-    url('/OpenSans/OpenSans-VariableFont_wdth,wght_subset.woff2') format('woff2');
+    url('/assets/OpenSans/OpenSans-VariableFont_wdth,wght_subset.woff2') format('woff2');
   font-display: swap;
 }
 
