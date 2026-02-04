@@ -7,7 +7,7 @@ export function ChordsAccidentalControl () {
   const songChordsSettings = useSongVersionSettings()
   return (
     <Toolbar.ButtonControl
-      title='accidental'
+      title='Accidental'
       onClick={() => songChordsSettings.toggleAccidental()}
     >
       {songChordsSettings.accidental === Chord.accidentals.sharp ? '#' : 'b'}
