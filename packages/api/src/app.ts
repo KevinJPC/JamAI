@@ -10,6 +10,10 @@ import { csrfSynchronisedProtection, generateToken } from './middlewares/csrf.js
 
 const app = express()
 
+if (config.env === 'production') {
+  app.set('trust proxy', 1)
+}
+
 app.use(morgan(':method :url'))
 
 app.use(cors({ origin: [config.frontendUrl], credentials: true, allowedHeaders: ['x-csrf-token', 'content-type', 'accept'] }))
