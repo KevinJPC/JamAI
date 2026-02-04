@@ -7,8 +7,8 @@ import './Footer.css'
 export const Footer = ({ className }) => {
   return (
     <footer className={classNames('footer', className)}>
-      <span>Developed by <Link external decorator to='#'>@kevinjpc</Link></span>
-      <Link external decorator to='#'>GitHub repository</Link>
+      <span>Developed by <Link external decorator to='https://www.linkedin.com/in/kevinpitti/'>@kevinpitti</Link></span>
+      <Link external decorator to='https://github.com/KevinJPC/JamAI'>GitHub repository</Link>
     </footer>
   )
 }
