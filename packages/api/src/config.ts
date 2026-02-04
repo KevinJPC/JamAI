@@ -56,7 +56,7 @@ export default {
     dbName: parsedConfig.data.MONGO_DB_NAME,
   },
   session: {
-    cookieName: 'connect.sid',
+    cookieName: 'sessionId',
     secretKey: parsedConfig.data.SESSIONS_SECRET_KEY,
     expirationMs: 1000 * 1 * 60 * 60 * 24 * 30 // 1 month
   },

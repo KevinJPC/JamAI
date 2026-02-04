@@ -2,23 +2,41 @@ import { ApiError } from '@/shared/errors'
 
 export class ApiFetcher {
   baseUrl
-  constructor (baseUrl) {
+  beforeRequest
+  afterRequest
+
+  constructor ({ baseUrl, beforeRequest = [], afterRequest = [] }) {
     this.baseUrl = baseUrl
+    this.beforeRequest = beforeRequest
+    this.afterRequest = afterRequest
   }
 
   async #fetch (endpoint, options = {}) {
-    const endpointWithSearchParams = options.searchParams ? `${endpoint}?${options.searchParams.toString()}` : endpoint
-    const url = this.baseUrl ? new URL(endpointWithSearchParams, this.baseUrl) : endpointWithSearchParams
-    const res = await fetch(url, {
-      method: options.method,
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        ...options.headers
+    let config = {
+      endpoint,
+      options: {
+        ...options,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          ...options.headers
+        }
       }
+    }
+
+    config = await this.beforeRequest.reduce(async (prevConfig, beforeRequestHook) => {
+      return await beforeRequestHook(prevConfig)
+    }, config)
+
+    const endpointWithSearchParams = config.options.searchParams ? `${endpoint}?${config.options.searchParams.toString()}` : endpoint
+    const url = this.baseUrl ? new URL(endpointWithSearchParams, this.baseUrl) : endpointWithSearchParams
+    let res = await fetch(url, {
+      method: config.options.method,
+      body: config.options.body ? JSON.stringify(config.options.body) : undefined,
+      headers: config.options.headers
 
     })
+
     if (!res.ok) {
       const errorData = await res.json().catch(() => null)
       const error = new ApiError({
@@ -36,8 +54,14 @@ export class ApiFetcher {
     if (res.headers.get('Content-Type')?.includes('application/json')) {
       data = await res.json()
     }
+    res.data = data
+    res.endpoint = endpoint
 
-    return { ...res, data }
+    res = await this.afterRequest.reduce(async (prevResponse, afterRequestHook) => {
+      return await afterRequestHook(prevResponse)
+    }, res)
+
+    return res
   }
 
   async get (endpoint, options = {}) {

@@ -9,6 +9,7 @@ import { isApiError } from '@/shared/utils/isApiError'
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError: (error) => {
+      console.error(error)
       if (isApiError(error, ERROR_CODES.FORBIDDEN)) {
         handleUnauthorized()
       }
@@ -20,6 +21,7 @@ export const queryClient = new QueryClient({
   queryCache: new QueryCache({
 
     onError: (error, query) => {
+      console.error(error)
       if (isApiError(error, ERROR_CODES.FORBIDDEN)) {
         handleUnauthorized()
       }

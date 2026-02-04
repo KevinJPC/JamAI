@@ -6,7 +6,6 @@ import { SongView } from '@/features/song/SongView'
 import { UserFavoriteSongsView } from '@/features/user-favorite-songs/UserFavoriteSongsView'
 import { UserSettingsView } from '@/features/user-settings/UserSettingsView'
 import { UserVersionsView } from '@/features/user-versions/UserVersionsView'
-import { LogInForm } from '@/shared/auth/LogInForm'
 import { BetterRoute } from '@/shared/components/BetterRoute'
 import { Layout } from '@/shared/components/Layout'
 import { PageNotFoundView } from '@/shared/components/PageNotFoundView'
@@ -17,10 +16,6 @@ const routes = [
   {
     path: paths.home.path,
     element: () => <HomeView />
-  },
-  {
-    path: '/login',
-    element: () => <LogInForm goToSignUp='/signup' />
   },
   {
     path: paths.search.path,

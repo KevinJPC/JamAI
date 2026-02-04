@@ -2,6 +2,8 @@ import config from '../config.js'
 import session from 'express-session'
 import sessionStore from '../lib/sessionStore.js'
 
+const isProd = config.env === 'production'
+
 export const sessionMiddleware = session({
   unset: 'destroy',
   store: sessionStore,
@@ -9,8 +11,8 @@ export const sessionMiddleware = session({
   cookie: {
     maxAge: config.session.expirationMs,
     httpOnly: true,
-    secure: config.env === 'production',
-    sameSite: 'strict',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
   },
   saveUninitialized: false,
   resave: false,
