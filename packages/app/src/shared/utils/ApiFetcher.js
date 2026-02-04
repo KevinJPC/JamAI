@@ -21,7 +21,9 @@ export class ApiFetcher {
           Accept: 'application/json',
           ...options.headers
         }
-      }
+      },
+      credentials: 'include'
+
     }
 
     config = await this.beforeRequest.reduce(async (prevConfig, beforeRequestHook) => {
@@ -33,8 +35,8 @@ export class ApiFetcher {
     let res = await fetch(url, {
       method: config.options.method,
       body: config.options.body ? JSON.stringify(config.options.body) : undefined,
-      headers: config.options.headers
-
+      headers: config.options.headers,
+      credentials: config.credentials
     })
 
     if (!res.ok) {
