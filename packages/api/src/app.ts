@@ -12,7 +12,7 @@ const app = express()
 
 app.use(morgan(':method :url'))
 
-app.use(cors({ origin: [config.frontendUrl], credentials: true, allowedHeaders: ['x-csrf-token'] }))
+app.use(cors({ origin: [config.frontendUrl], credentials: true, allowedHeaders: ['x-csrf-token', 'content-type', 'accept'] }))
 
 app.use(compression())
 
