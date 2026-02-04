@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { ERROR_CODES } from '@chords-extractor/common/constants'
+import { useQuery } from '@tanstack/react-query'
 
 import { AuthContext } from '@/shared/auth/AuthContext'
-import { getPersistedIsLoggedIn, updatePersistedIsLoggedIn } from '@/shared/auth/authStore'
+import { getPersistedIsLoggedIn, getPersistedSessionExpired, updatePersistedIsLoggedIn, updatePersistedSessionExpired } from '@/shared/auth/authStore'
 import { Spinner } from '@/shared/components/Spinner'
 import { queryClient } from '@/shared/lib/queryClient'
 import { getMe } from '@/shared/services/users'
@@ -14,37 +15,37 @@ import { isApiError } from '@/shared/utils/isApiError'
 const unauthorizedEventType = 'unauthorized'
 
 export function AuthProvider ({ children }) {
-  const [claimToBeLoggedIn] = useState(() => getPersistedIsLoggedIn())
-  const [user, setUser] = useState(() => null)
-  const [isAuthenticating, setIsAutenticating] = useState(() => claimToBeLoggedIn)
+  const userKey = ['me']
+  const userQuery = useQuery({
+    queryKey: userKey,
+    queryFn: () => {
+      const claimToBeLoggedIn = getPersistedIsLoggedIn()
+      if (!claimToBeLoggedIn) return null
+      return getMe()
+    },
+    staleTime: Infinity,
+    throwOnError: (error) => {
+      return (!isApiError(error, ERROR_CODES.FORBIDDEN))
+    }
+  })
 
-  const isAuthenticated = !!user
+  const setUser = (data) => {
+    queryClient.setQueryData(userKey, data)
+  }
+
+  const [lastSessionHasExpired] = useState(getPersistedSessionExpired)
 
   useEffect(() => {
-    if (!claimToBeLoggedIn || isAuthenticated) return
-    const getAuthenticatedUser = async () => {
-      try {
-        setIsAutenticating(true)
-        const authenticatedUser = await getMe()
-        updatePersistedIsLoggedIn(true)
-        setUser(authenticatedUser)
-      } catch (error) {
-        if (isApiError(error, ERROR_CODES.FORBIDDEN)) {
-          toast.error('Session expired.', { containerId: 'general' })
-          updatePersistedIsLoggedIn(false)
-          return
-        }
-        throw error
-      } finally {
-        setIsAutenticating(false)
-      }
-    }
-    getAuthenticatedUser()
+    if (!lastSessionHasExpired) return
+    toast.error('Session expired.', { containerId: 'general' })
+    updatePersistedSessionExpired(false)
   }, [])
 
   useEffect(() => {
     const handleOnUnauthorized = (e) => {
       queryClient.clear()
+      updatePersistedSessionExpired(true)
+
       updatePersistedIsLoggedIn(false)
       window.location.href = '/'
     }
@@ -52,12 +53,12 @@ export function AuthProvider ({ children }) {
     return () => document.removeEventListener(unauthorizedEventType, handleOnUnauthorized)
   }, [])
 
-  if (isAuthenticating) {
+  if (userQuery.isPending) {
     return <Spinner />
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, setUser }}>
+    <AuthContext.Provider value={{ isAuthenticated: !!userQuery.data, user: userQuery.data, setUser }}>
       {children}
     </AuthContext.Provider>
   )

@@ -30,7 +30,7 @@ export const LogInForm = ({ goToSignUp, onSuccess, onPending, onError }) => {
       <TextInput type='email' name='email' placeholder='email' />
       <TextInput type='password' name='password' placeholder='password' />
 
-      {signInMutation.status === 'error' ? <span>{signInMutation.error?.errorCode}</span> : null}
+      {signInMutation.status === 'error' ? <span>{signInMutation.error?.message || 'Unknown error, try again later'}</span> : null}
 
       <div className='log-in__buttons'>
         {
