@@ -35,5 +35,8 @@ export function useAnimatedUnmount (isOpen) {
     }
   }, [isOpen])
 
-  return { isVisible, elementRef }
+  // mark it as visible as soon as its isOpen its true but wait for animation to mark it as not visible
+  const derivedIsVisible = isOpen || isVisible
+
+  return { isVisible: derivedIsVisible, elementRef }
 }

@@ -153,6 +153,11 @@ img {
   scrollbar-width: none;
 } 
 
+.scrollbar-reserve {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width);
+}
+
 .section-box {
   background-color: rgba(var(--blue-100), 1);  
   border: 1px solid rgba(var(--blue-170), 1);

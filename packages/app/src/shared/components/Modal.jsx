@@ -29,18 +29,13 @@ export const Modal = ({ children, defaultIsOpen = false, isOpen: controlledIsOpe
   const { isVisible: contentIsVisible, elementRef: contentRef } = useAnimatedUnmount(isOpen)
   const { isVisible: backdropIsVisible, elementRef: backdropRef } = useAnimatedUnmount(isOpen)
 
-  useEffect(() => {
-    if (isOpen) {
-      hideScrollbar()
-    } else if (!contentIsVisible && !backdropIsVisible) {
-      onExit?.()
-      showScrollbar()
-    }
-  }, [contentIsVisible, backdropIsVisible, isOpen])
+  useHideScrollbar(contentIsVisible && backdropIsVisible)
 
   useEffect(() => {
-    return () => showScrollbar()
-  }, [])
+    if (!contentIsVisible && !backdropIsVisible) {
+      onExit?.()
+    }
+  }, [contentIsVisible, backdropIsVisible])
 
   return (
     <ModalContext.Provider value={{ isOpen, updateIsOpen, contentIsVisible, contentRef, backdropIsVisible, backdropRef }}>
@@ -120,13 +115,29 @@ Modal.CloseButton = ({ className, disabled = false }) => {
   )
 }
 
+// WARNING: This hook does not account for multiple callers, a component
+// might prematurely restore the scrollbar while others require it hidden
+// Some global state is needed if thats required
+function useHideScrollbar (shouldHide) {
+  useEffect(() => {
+    if (shouldHide) {
+      hideScrollbar()
+      return () => showScrollbar()
+    }
+    showScrollbar()
+  }, [shouldHide])
+}
+
+let scrollIsHidden = false
+
 const hideScrollbar = () => {
-  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
-  document.body.style.overflow = 'hidden'
-  document.body.style.paddingRight = `${scrollBarWidth}px`
+  if (scrollIsHidden) return
+  scrollIsHidden = true
+  document.body.classList.add('scrollbar-reserve')
 }
 
 const showScrollbar = () => {
-  document.body.style.overflow = 'auto'
-  document.body.style.paddingRight = '0'
+  if (!scrollIsHidden) return
+  scrollIsHidden = false
+  document.body.classList.remove('scrollbar-reserve')
 }

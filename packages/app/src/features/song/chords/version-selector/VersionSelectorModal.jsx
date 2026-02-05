@@ -31,21 +31,11 @@ export function VersionSelector ({ currentVersion, onExit }) {
   return (
     <Modal isOpen={isOpen} onIsOpenChange={setIsOpen} onExit={onExit}>
       <Modal.Backdrop />
-      <Modal.Trigger renderElement={({ onClick }) => (
-        <Button
-          className='version-selector-modal__button'
-          variant='transparent'
-          onClick={onClick}
-        >
-          <span
-            className='version-selector-modal__button-text'
-          >{buttonText}
-          </span> <ChevronDownIcon width={16} strokeWidth={3} />
-        </Button>
-      )}
-      />
       <Modal.Content>
-        <Modal.Header>Select a song version
+        <Modal.Header>
+          <Modal.Title>
+            Select a song version
+          </Modal.Title>
           <Modal.CloseButton />
         </Modal.Header>
         <Modal.Body className='version-selector-modal__body'>
@@ -79,6 +69,19 @@ export function VersionSelector ({ currentVersion, onExit }) {
           )}
         </Modal.Body>
       </Modal.Content>
+      <Modal.Trigger renderElement={({ onClick }) => (
+        <Button
+          className='version-selector-modal__button'
+          variant='transparent'
+          onClick={onClick}
+        >
+          <span
+            className='version-selector-modal__button-text'
+          >{buttonText}
+          </span> <ChevronDownIcon width={16} strokeWidth={3} />
+        </Button>
+      )}
+      />
     </Modal>
   )
 }
