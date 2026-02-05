@@ -1,9 +1,9 @@
 import { VersionDocument } from '../lib/db/documents/VersionDocument.js'
-import { InvalidVersionIdError } from '../errors.js'
 import { jamAIMongoDB } from '../lib/db/JamAIMongoDB.js'
 import { parseKnown } from '../utils/parseKnown.js'
 import { RateVersionInput, RateVersionResponse } from '../types/versions.js'
 import { rateVersionResponseSchema } from '../schemas/versions.js'
+import { notFoundError } from '../errors.js'
 
 export class VersionRatingService {
   static async rateVersion (input: RateVersionInput): Promise<RateVersionResponse> {
@@ -16,7 +16,7 @@ export class VersionRatingService {
             session
           })
 
-      if (!version) throw new InvalidVersionIdError()
+      if (!version) throw notFoundError()
 
       const newUserRating: VersionDocument['ratings'][number] = {
         userId: input.userId,

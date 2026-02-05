@@ -1,6 +1,6 @@
 import { useUserFavoriteSongsInfiniteQuery } from '@/features/user-favorite-songs/queries'
 import { UserFavoriteSongsList } from '@/features/user-favorite-songs/UserFavoriteSongsList'
-import { AlertBox } from '@/shared/components/AlertBox'
+import { PlaceholderContent } from '@/shared/components/PlaceholderContent'
 import { InfinitePagination } from '@/shared/components/InfinitePagination'
 import { SongListSkeleton } from '@/shared/components/SongListSkeleton'
 
@@ -27,7 +27,7 @@ export function UserFavoriteSongsView () {
         </>
       )}
       {favoritesSongsQuery.data && !favoritesSongsQuery.data.hasResults && (
-        <AlertBox
+        <PlaceholderContent
           title='No favorite songs yet'
           message='Add songs to your favorites to see them here.'
         />

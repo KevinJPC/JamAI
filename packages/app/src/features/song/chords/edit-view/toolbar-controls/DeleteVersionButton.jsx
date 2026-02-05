@@ -11,6 +11,7 @@ import { paths } from '@/shared/config/paths'
 import { CHORDS_TABS_IDS } from '@/shared/constants'
 import { useDialog } from '@/shared/hooks/useDialog'
 import { useRouteSearchParams } from '@/shared/hooks/useRouteSearchParams'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 
 export function DeleteVersionButton () {
   const { draftVersion, isDraftOfUserVersion } = useEditViewContext()
@@ -35,10 +36,10 @@ export function DeleteVersionButton () {
       onSuccess: () => {
         draftVersion.clearDraftRecovery()
         updateSearchParams({ view: CHORDS_TABS_IDS.general }, { replace: true })
-        toast.success('Version deleted. Displaying default version...', { containerId: 'general' })
+        toast.success('Version deleted. Displaying default version...', { containerId: GENERAL_CONTAINER_ID })
       },
       onError: () => {
-        toast.error('Error deleting version.', { containerId: 'general' })
+        toast.error('Error deleting version.', { containerId: GENERAL_CONTAINER_ID })
       }
     })
   }

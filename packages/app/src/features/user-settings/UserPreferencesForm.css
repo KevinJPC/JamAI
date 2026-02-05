@@ -19,7 +19,7 @@
 
 .user-preferences-form__chords-language-label {
     flex: 1 1 100%;
-    font-weight: 400;
+    font-weight: var(--fw-semibold);
 }
 
 .user-preferences-form__chords-language-radios {

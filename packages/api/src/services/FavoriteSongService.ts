@@ -1,6 +1,5 @@
 import { Document, ObjectId, StrictFilter } from 'mongodb'
 import { jamAIMongoDB } from '../lib/db/JamAIMongoDB.js'
-import { InvalidSongIdError } from '../errors.js'
 import { FavoriteSongDocument } from '../lib/db/documents/FavoriteSongDocument.js'
 import { FavoriteSongInput, GetFavoriteUserSongsContinuationTokenPayload, GetFavoriteUserSongsQuery, UnfavoriteSongInput } from '../types/favoriteSongs.js'
 import { createContinuationTokenHandler } from '../utils/continuationToken.js'
@@ -12,6 +11,7 @@ import { songSummaryResponseSchema } from '../schemas/songs.js'
 import { SongDocument } from '../lib/db/documents/SongDocument.js'
 import { getFavoriteUserSongsContinuationTokenPayloadSchema } from '../schemas/favoriteSongs.js'
 import { sliceForCursorPagination } from '../utils/sliceForCursorPagination.js'
+import { notFoundError } from '../errors.js'
 
 export class FavoriteSongService {
   static async getFavoriteUserSongs (query: GetFavoriteUserSongsQuery): Promise<CursorPage<SongSummaryResponse>> {
@@ -80,7 +80,7 @@ export class FavoriteSongService {
     await jamAIMongoDB().withTransaction(async (session) => {
       const songExists = !!(await jamAIMongoDB().songs().findOne({ _id: input.songId }, { projection: { _id: 1 }, session }))
 
-      if (!songExists) throw new InvalidSongIdError()
+      if (!songExists) throw notFoundError()
 
       const newFavoriteSongDoc: FavoriteSongDocument = {
         _id: new ObjectId(),
@@ -106,7 +106,7 @@ export class FavoriteSongService {
     await jamAIMongoDB().withTransaction(async (session) => {
       const songExists = !!(await jamAIMongoDB().songs().findOne({ _id: input.songId }, { projection: { _id: 1 }, session }))
 
-      if (!songExists) throw new InvalidSongIdError()
+      if (!songExists) throw notFoundError()
 
       const deleteResult = await jamAIMongoDB().favoriteSongs().deleteOne({ userId: input.userId, songId: input.songId }, { session })
 

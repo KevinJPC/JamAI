@@ -15,6 +15,7 @@ import { useDialog } from '@/shared/hooks/useDialog'
 import { useRouteSearchParams } from '@/shared/hooks/useRouteSearchParams'
 import { useSongVersionSettings } from '@/shared/song-version-settings/SongVersionSettingsContext'
 import { updatePersistedSongVersionSettings } from '@/shared/song-version-settings/storage'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 import { useUserPreferences } from '@/shared/user-preferences/UserPreferencesContext'
 
 export function SaveVersionButton () {
@@ -67,10 +68,10 @@ export function SaveVersionButton () {
           updatePersistedSongVersionSettings({ songId: draftVersion.songId, versionId: versionData.id, }, songVersionSettings)
         }
         updateSearchParams((prev) => ({ ...prev, version: versionData.id }), { replace: true })
-        toast.success('Song version created and now being displayed.', { containerId: 'general' })
+        toast.success('Song version created and now being displayed.', { containerId: GENERAL_CONTAINER_ID })
       },
       onError: () => {
-        toast.error('Error saving song version.', { containerId: 'general' })
+        toast.error('Error saving song version.', { containerId: GENERAL_CONTAINER_ID })
       }
     })
   }

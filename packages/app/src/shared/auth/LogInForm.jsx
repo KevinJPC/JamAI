@@ -1,7 +1,9 @@
 import { useSignInMutation } from '@/shared/auth/queries'
+import { Alert, alertType } from '@/shared/components/Alert'
 import { Button } from '@/shared/components/Button'
 import { Spinner } from '@/shared/components/Spinner'
 import { TextInput } from '@/shared/components/TextInput'
+import { getApiValidationErrorMessages } from '@/shared/utils/getApiValidationErrorMessages'
 
 import './LogInForm.css'
 
@@ -27,10 +29,16 @@ export const LogInForm = ({ goToSignUp, onSuccess, onPending, onError }) => {
 
   return (
     <form onSubmit={handleOnSubmit} className='log-in__form'>
-      <TextInput type='email' name='email' placeholder='email' />
-      <TextInput type='password' name='password' placeholder='password' />
+      <TextInput
+        type='email' name='email' placeholder='Email'
+        errorMessages={getApiValidationErrorMessages(signInMutation.error, 'email')}
+      />
+      <TextInput
+        type='password' name='password' placeholder='Password'
+        errorMessages={getApiValidationErrorMessages(signInMutation.error, 'password')}
+      />
 
-      {signInMutation.status === 'error' ? <span>{signInMutation.error?.message || 'Unknown error, try again later'}</span> : null}
+      {signInMutation.error?.message && <Alert type={alertType.error} title={signInMutation.error.message} />}
 
       <div className='log-in__buttons'>
         {

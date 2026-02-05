@@ -11,6 +11,7 @@
     "dev": "concurrently --names tsc,esbuild,node \"tsc --watch --preserveWatchOutput\" \"node ./build.dev.js\" \"node --env-file=./../../.env --watch  --watch-preserve-output ./build/server.js\"",
     "start": "node ./build/server.js",
     "build": "concurrently --names tsc,esbuild \"tsc\" \"node ./build.js\"",
+    "tsc": "tsc",
     "pre-commit": ""
   },
   "keywords": [],

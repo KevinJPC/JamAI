@@ -8,6 +8,7 @@ import { AuthModal } from '@/shared/auth/AuthModal'
 import { Button } from '@/shared/components/Button'
 import { StarIcon } from '@/shared/components/icons'
 import { useDialog } from '@/shared/hooks/useDialog'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 
 import './VersionRatingControl.css'
 
@@ -35,7 +36,7 @@ export function VersionRatingControl ({ className, currentUserRating, songId, ve
     if (!auth.isAuthenticated) return setDialog(({ close }) => <AuthModal onClose={close} />)
     rateVersionMutation.mutate({ songId, versionId, rating: newRating }, {
       onError: () => {
-        toast.error('Error rating version', { containerId: 'general' })
+        toast.error('Error rating version', { containerId: GENERAL_CONTAINER_ID })
       }
     })
   }

@@ -5,16 +5,23 @@
   border-radius: 10px;
   background-color: rgba(var(--blue-150));
   outline: 1px solid rgba(var(--blue-170));
-  padding: 0 1rem;
+  padding: var(--space-sm) var(--space-md);
   --toastify-toast-min-height: 45px;
   margin: 0;
-  font-size: var(--text-md);
   color: rgba(var(--white));
- /* --toastify-toast-max-height: 100px */
+  overflow: hidden;
+
+  font-family: var(--font-family);
+  font-size: var(--text-md);
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-md);
 }
 
 .Toastify__toast-icon {
-  margin-right: .8rem;
+  margin: 0;
   width: 18px;
 }
 
@@ -23,17 +30,12 @@
   margin-top: var(--toast-margin-top);
 }
 
-.Toastify__toast-body {
-  padding: 0;
-  margin: 0;
-}
-
 .Toastify__progress-bar--wrp {
   height: 1px;
 }
 
 .Toastify__close-button {
-  align-self: center;
+  position: static;
   display: flex;
   align-items: center;
 }

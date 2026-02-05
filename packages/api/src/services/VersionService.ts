@@ -1,5 +1,4 @@
 import { jamAIMongoDB } from '../lib/db/JamAIMongoDB.js'
-import { ForbiddenError, NotFoundError } from '../errors.js'
 import { Document, ObjectId, StrictFilter } from 'mongodb'
 import { VersionDocument } from '../lib/db/documents/VersionDocument.js'
 import { DeleteUserSongVersionInput, GetSongVersionQuery, GetSongVersionsContinuationTokenPayload, GetSongVersionsQuery, GetUserVersionsContinuationTokenPayload, GetUserVersionsQuery, UpsertSongVersionInput, UpsertSongVersionResponse, UserVersionSummaryResponse, VersionDetailedResponse, VersionSummaryResponse } from '../types/versions.js'
@@ -10,6 +9,7 @@ import { createCursorPage, CursorPage } from '../utils/cursorPage.js'
 import { PAGINATION_LIMIT } from '../constants.js'
 import { sliceForCursorPagination } from '../utils/sliceForCursorPagination.js'
 import Chord from '@chords-extractor/common/chord'
+import { forbiddenError, notFoundError } from '../errors.js'
 
 export class VersionService {
   static async getSongVersion (query: GetSongVersionQuery): Promise<VersionDetailedResponse> {
@@ -60,7 +60,7 @@ export class VersionService {
       }))
       .next()
 
-    if (!versionResponse) throw new NotFoundError()
+    if (!versionResponse) throw notFoundError()
 
     return versionResponse
   }
@@ -119,14 +119,14 @@ export class VersionService {
 
   static async upsertUserVersion (input: UpsertSongVersionInput): Promise<UpsertSongVersionResponse> {
     const user = await jamAIMongoDB().users().findOne({ _id: input.userId })
-    if (!user) throw new ForbiddenError()
+    if (!user) throw forbiddenError()
 
     const originalVersion = await jamAIMongoDB().versions().findOne({
       _id: input.originalVersionId,
       songId: input.songId,
     })
 
-    if (!originalVersion) throw new NotFoundError()
+    if (!originalVersion) throw notFoundError()
 
     if (input.chords.length !== originalVersion.beatsCount) throw new Error('There are fewer or more chords than the original version')
 

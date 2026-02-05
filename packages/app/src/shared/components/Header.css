@@ -47,3 +47,9 @@
   height: 100%;
   border-radius: 999px;
 }
+
+@media(width <= 45rem) {
+  .header__signin-button {
+    display: none;
+  }
+}

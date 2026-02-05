@@ -3,6 +3,7 @@ import { ERROR_CODES, HTTP_CODES } from '@chords-extractor/common/constants'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
 import { handleUnauthorized } from '@/shared/auth/AuthProvider.jsx'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 import { formatMsToHHMMSS } from '@/shared/utils/formatMsToHHMMSS'
 import { isApiError } from '@/shared/utils/isApiError'
 
@@ -13,8 +14,8 @@ export const queryClient = new QueryClient({
       if (isApiError(error, ERROR_CODES.FORBIDDEN)) {
         handleUnauthorized()
       }
-      if (isApiError(error, ERROR_CODES.TOO_MANY_REQUESTS)) {
-        toast.error(`Slow down, try again in ${formatMsToHHMMSS(error.retryAfterMs)}`, { containerId: 'general' })
+      if (isApiError(error, ERROR_CODES.TOO_MANY_REQUESTS) && error.details.retryAfterMs) {
+        toast.error(`Slow down, try again in ${formatMsToHHMMSS(error.details.retryAfterMs)}`, { containerId: GENERAL_CONTAINER_ID })
       }
     }
   }),
@@ -26,8 +27,8 @@ export const queryClient = new QueryClient({
         handleUnauthorized()
       }
 
-      if (isApiError(error, ERROR_CODES.TOO_MANY_REQUESTS)) {
-        toast.error(`Slow down, try again in ${formatMsToHHMMSS(error.retryAfterMs)}`, { containerId: 'general' })
+      if (isApiError(error, ERROR_CODES.TOO_MANY_REQUESTS) && error.details.retryAfterMs) {
+        toast.error(`Slow down, try again in ${formatMsToHHMMSS(error.datails.retryAfterMs)}`, { containerId: GENERAL_CONTAINER_ID })
       }
     },
 
@@ -45,6 +46,13 @@ export const queryClient = new QueryClient({
         return false
       }
     },
+    mutations: {
+      throwOnError: (error) => {
+        if (!isApiError(error)) return true
+        if (error.errorCode >= 500) return true
+        return false
+      }
+    }
 
   }
 })

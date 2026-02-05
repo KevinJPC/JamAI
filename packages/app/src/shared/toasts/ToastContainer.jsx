@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
-import { cssTransition, toast, ToastContainer, useToastContainer } from 'react-toastify'
+import { cssTransition, ToastContainer as ReactToastifyToastContainer } from 'react-toastify'
 
-import 'react-toastify/dist/ReactToastify.css'
-import './Toaster.css'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
+
+import './ToastContainer.css'
 
 const Transition = cssTransition({
   enter: 'toast__slide-in',
@@ -11,26 +11,12 @@ const Transition = cssTransition({
   collapse: false
 })
 
-const TOAST_LIMIT = 3
-
-export const Toaster = () => {
-  // Limit showed toast to 3 as max
-  const toastContainer = useToastContainer({ containerId: 'general' })
-  useEffect(() => {
-    toastContainer.getToastToRender((_position, toasts) => {
-      toasts
-        .reverse()
-        .filter((_t, index) => index + 1 > TOAST_LIMIT)
-        .forEach(t => {
-          if (t.props.toastId) {
-            toast.dismiss(t.props.toastId)
-          }
-        })
-    })
-  }, [toastContainer.count])
+export const ToastContainer = () => {
   return (
-    <ToastContainer
-      containerId='general'
+    <ReactToastifyToastContainer
+      draggable='touch'
+      limit={3}
+      containerId={GENERAL_CONTAINER_ID}
       position='bottom-right'
       theme='dark'
       transition={(props) => {

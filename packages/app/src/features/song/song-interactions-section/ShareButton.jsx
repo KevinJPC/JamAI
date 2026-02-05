@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { Button, BUTTON_VARIANTS } from '@/shared/components/Button'
 import { ShareIcon } from '@/shared/components/icons/ShareIcon'
 import { paths } from '@/shared/config/paths'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 
 import './ShareButton.css'
 
@@ -13,9 +14,9 @@ export function ShareButton ({ songId, versionId }) {
       search: { version: versionId }
     })
     await navigator.clipboard.writeText(href).catch(_ => {
-      toast.error('Could not copy link to clipboard!', { containerId: 'general' })
+      toast.error('Could not copy link to clipboard!', { containerId: GENERAL_CONTAINER_ID })
     })
-    toast.success('Link copied to clipboard!', { containerId: 'general' })
+    toast.success('Link copied to clipboard!', { containerId: GENERAL_CONTAINER_ID })
   }
   return (
     <Button

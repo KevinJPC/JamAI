@@ -36,11 +36,15 @@
   --blue-200: 42, 36, 71;
   --blue-250: 72, 66, 101;
   --green: 89, 195, 195;
+  --red: 255, 102, 102;
+  --dark-red: 76, 0, 0;
   
   --text-xs: 0.625rem; 
   --text-sm: 0.75rem; 
   --text-md: 0.875rem; 
   --text-lg: 1.125rem; 
+
+  --font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
 
   --space: 1rem;
 
@@ -49,8 +53,9 @@
   --space-md: var(--space);
   --space-lg: calc(var(--space) * 1.5);
   --space-xl: calc(var(--space) * 2);
-
+  
   --fw-medium: 400;
+  --fw-semibold: 500;
   --fw-bold: 600;
 
   --scrollbar-width: 0px;
@@ -58,8 +63,14 @@
   background-color: rgba(var(--black));
 }
 
+/* =========================================================
+   Breakpoints
+   ========================================================= */
+
+/* BREAKPOINT small (<= 45rem) */
+
 body {
-  font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-family);
   color: rgb(var(--white));
 }
 

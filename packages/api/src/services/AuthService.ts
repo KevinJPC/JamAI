@@ -1,20 +1,20 @@
 import { ObjectId } from 'mongodb'
 import { jamAIMongoDB } from '../lib/db/JamAIMongoDB.js'
-import { EmailAlreadyTaken, InvalidCredentialsError } from '../errors.js'
 import { comparePassword, hashPassword } from '../utils/password.js'
 import { UserDocument } from '../lib/db/documents/UserDocument.js'
 import { SignInInput, SignUpInput } from '../types/users.js'
 import { parseKnown } from '../utils/parseKnown.js'
 import { userResponseSchema } from '../schemas/users.js'
+import { emailAlreadyTakenError, invalidCredentialsError } from '../errors.js'
 
 export class AuthService {
   static async signIn (input: SignInInput) {
     const user = await jamAIMongoDB().users().findOne({ email: input.email })
 
-    if (user === null) throw new InvalidCredentialsError()
+    if (user === null) throw invalidCredentialsError()
 
     const isValidPassword = await comparePassword(input.password, user.password)
-    if (!isValidPassword) throw new InvalidCredentialsError()
+    if (!isValidPassword) throw invalidCredentialsError()
 
     return parseKnown(userResponseSchema, {
       id: user._id,
@@ -26,7 +26,7 @@ export class AuthService {
 
   static async signUp (input: SignUpInput) {
     const userExists = !!(await jamAIMongoDB().users().countDocuments({ email: input.email }, { limit: 1 }))
-    if (userExists) throw new EmailAlreadyTaken()
+    if (userExists) throw emailAlreadyTakenError()
 
     const hashedPassword = await hashPassword(input.password)
 

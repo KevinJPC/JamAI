@@ -2,24 +2,65 @@ import classNames from 'classnames'
 
 import './TextInput.css'
 
-export function TextInput ({ inputProps, labelProps, label, name, value, defaultValue, onChange, placeholder, type, disabled, className, inputClassName }) {
+const inputTypes = {
+  text: 'text',
+  email: 'email',
+  password: 'password',
+  number: 'number',
+}
+
+export function TextInput ({
+  id,
+  name,
+  label,
+  value,
+  defaultValue,
+  onChange,
+  placeholder,
+  type,
+  disabled,
+  classNames: {
+    wrapper: wrapperClassName,
+    input: inputClassName,
+    label: labelClassName
+  } = {},
+  errorMessages,
+  ...props
+}) {
+  const parsedInputType = inputTypes[type]
+  if (!parsedInputType) throw new Error('Invalid input type for component')
+  const hasError = errorMessages?.length > 0
+
   return (
-    <label
-      {...labelProps}
-      className={classNames('text-input__label', className)}
-    >
-      {label}
+    <div className={classNames('text-input', wrapperClassName)} aria-invalid={hasError}>
+      {label && <label htmlFor={id} className={classNames('text-input__label', labelClassName)}>{label}</label>}
       <input
-        {...inputProps}
+        {...props}
+        id={id}
         name={name}
         placeholder={placeholder}
-        type={type}
+        type={parsedInputType}
         value={value}
         defaultValue={defaultValue}
         onChange={onChange}
         className={classNames('text-input__input', inputClassName)}
         disabled={disabled}
       />
-    </label>
+      <FieldErrors errorMessages={errorMessages} />
+    </div>
+
+  )
+}
+
+function FieldErrors ({ errorMessages }) {
+  if (!errorMessages || errorMessages.length === 0) return null
+  return (
+    errorMessages?.map((message, index) => (
+      <p
+        key={message}
+        className={classNames('field-error')}
+      >{message}
+      </p>
+    ))
   )
 }

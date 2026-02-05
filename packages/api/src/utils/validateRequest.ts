@@ -1,5 +1,6 @@
 import { z, ZodType } from 'zod'
-import { ValidationError } from '../errors.js'
+import { validationError, ValidationErrors } from '../errors.js'
+import { flattenZodIssues } from '@chords-extractor/common/utils'
 
 type RawOf<T> = { [K in keyof T]: unknown }
 
@@ -7,7 +8,5 @@ export function validateRequest<T extends ZodType> (schema: T, input: RawOf<z.in
   const validationResult = schema.safeParse(input)
 
   if (validationResult.success) return validationResult.data
-  // TODO: remove
-  console.log(validationResult.error)
-  throw new ValidationError()
+  throw validationError({ errors: flattenZodIssues(validationResult.error.issues) as ValidationErrors })
 }

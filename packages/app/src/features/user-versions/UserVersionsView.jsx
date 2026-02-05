@@ -1,7 +1,7 @@
 import { useUserVersionsInfiniteQuery } from '@/features/user-versions/queries'
 import { UserVersionsList } from '@/features/user-versions/UserVersionsList'
-import { AlertBox } from '@/shared/components/AlertBox'
 import { InfinitePagination } from '@/shared/components/InfinitePagination'
+import { PlaceholderContent } from '@/shared/components/PlaceholderContent'
 import { SongListSkeleton } from '@/shared/components/SongListSkeleton'
 
 import './UserVersionsView.css'
@@ -31,7 +31,7 @@ export function UserVersionsView () {
       )}
 
       {versionsQuery.data && !versionsQuery.data.hasResults && (
-        <AlertBox
+        <PlaceholderContent
           title='No song versions yet'
           message='Create your own song versions with improved chords to see them here.'
         />

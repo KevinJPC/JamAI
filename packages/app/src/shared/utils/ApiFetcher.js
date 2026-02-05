@@ -46,7 +46,7 @@ export class ApiFetcher {
         statusCode: res.status,
         errorCode: errorData?.errorCode,
         message: errorData?.message,
-        retryAfterMs: errorData?.retryAfterMs
+        details: errorData?.details
       })
       throw error
     }

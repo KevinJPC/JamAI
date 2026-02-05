@@ -13,3 +13,9 @@
 .log-in__button {
   flex: 0 1 100px;
 }
+
+.log-in__error-message {
+  color: rgba(var(--red,1));
+  font-size: var(--text-sm);
+  text-align: center;
+}

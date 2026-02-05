@@ -1,19 +1,19 @@
-import { HTTP_CODES } from '@chords-extractor/common/constants'
+import { ERROR_CODES, HTTP_CODES } from '@chords-extractor/common/constants'
 import { AnalysesService } from '../services/AnalysesService.js'
 import { protectedRouteHandler } from '../utils/routes.js'
 import { Router } from 'express'
 import { validateRequest } from '../utils/validateRequest.js'
 import { createYoutubeVideoAnalysisJobInputSchema, getYoutubeVideoAnalysisJobQuerySchema } from '../schemas/analyses.js'
 import { createYoutubeVideoAnalysisJobLimiter } from '../lib/rateLimiters.js'
-import { ServiceUnavailable, TooManyRequests, YoutubeVideoTooLongError } from '../errors.js'
 import { tryRateLimiterConsume } from '../utils/tryRateLimiterConsume.js'
 import config from '../config.js'
+import { AppError, featureUnavailableError, tooManyRequestsError } from '../errors.js'
 
 const router = Router()
 
 router.get('/:id', protectedRouteHandler(
   async function getAnalysisJob (req, res) {
-    if (config.disableAnalysisJobs) throw new ServiceUnavailable()
+    if (config.disableAnalysisJobs) throw featureUnavailableError()
 
     const query = validateRequest(getYoutubeVideoAnalysisJobQuerySchema, {
       id: req.params.id
@@ -29,8 +29,7 @@ router.get('/:id', protectedRouteHandler(
 
 router.post('/', protectedRouteHandler(
   async function createAnalysisJob (req, res) {
-    console.log(config.disableAnalysisJobs)
-    if (config.disableAnalysisJobs) throw new ServiceUnavailable()
+    if (config.disableAnalysisJobs) throw featureUnavailableError()
 
     const input = validateRequest(createYoutubeVideoAnalysisJobInputSchema, {
       youtubeId: req.body.youtubeId,
@@ -39,14 +38,14 @@ router.post('/', protectedRouteHandler(
 
     const [allowed, rateLimiterRes] = await tryRateLimiterConsume(createYoutubeVideoAnalysisJobLimiter, req.session.user.id, 1)
 
-    if (!allowed) throw new TooManyRequests({ retryAfterMs: rateLimiterRes.msBeforeNext })
+    if (!allowed) throw tooManyRequestsError({ retryAfterMs: rateLimiterRes.msBeforeNext })
 
     let job
 
     try {
       job = await AnalysesService.createYoutubeVideoAnalysisJob(input)
     } catch (error) {
-      if (error instanceof YoutubeVideoTooLongError) {
+      if (error instanceof AppError && error.errorCode === ERROR_CODES.YOUTUBE_VIDEO_TOO_LONG) {
         await createYoutubeVideoAnalysisJobLimiter.reward(req.session.user.id, 1)
       }
     }

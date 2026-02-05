@@ -67,7 +67,7 @@ function HeaderAuthButtons () {
       <Button onClick={() => handleClickAuthButtons({ formView: 'login' })} variant='secondary'>
         Log In
       </Button>
-      <Button onClick={() => handleClickAuthButtons({ formView: 'signup' })} variant='primary'>
+      <Button className='header__signin-button' onClick={() => handleClickAuthButtons({ formView: 'signup' })} variant='primary'>
         Sign Up
       </Button>
     </div>

@@ -6,6 +6,7 @@ import { useSignOutMutation } from '@/shared/auth/queries'
 import { Button } from '@/shared/components/Button'
 import { PopOver } from '@/shared/components/PopOver'
 import { paths } from '@/shared/config/paths'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 
 import './ProfileMenu.css'
 
@@ -51,7 +52,7 @@ function SignOutButton ({ className }) {
     signOutMutation.mutate(null, {
       onError: (err) => {
         console.log(err)
-        toast.error('Error loggin out', { containerId: 'general' })
+        toast.error('Error loggin out', { containerId: GENERAL_CONTAINER_ID })
       }
     })
   }

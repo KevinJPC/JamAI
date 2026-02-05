@@ -8,6 +8,7 @@ import { getPersistedIsLoggedIn, getPersistedSessionExpired, updatePersistedIsLo
 import { Spinner } from '@/shared/components/Spinner'
 import { queryClient } from '@/shared/lib/queryClient'
 import { getMe } from '@/shared/services/users'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 import { isApiError } from '@/shared/utils/isApiError'
 
 // storage
@@ -37,16 +38,17 @@ export function AuthProvider ({ children }) {
 
   useEffect(() => {
     if (!lastSessionHasExpired) return
-    toast.error('Session expired.', { containerId: 'general' })
+    toast.error('Session expired.', { containerId: GENERAL_CONTAINER_ID })
+
     updatePersistedSessionExpired(false)
   }, [])
 
   useEffect(() => {
     const handleOnUnauthorized = (e) => {
       queryClient.clear()
+      updatePersistedIsLoggedIn(false)
       updatePersistedSessionExpired(true)
 
-      updatePersistedIsLoggedIn(false)
       window.location.href = '/'
     }
     document.addEventListener(unauthorizedEventType, handleOnUnauthorized)

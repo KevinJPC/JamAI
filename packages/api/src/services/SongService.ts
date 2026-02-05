@@ -3,13 +3,13 @@ import { PAGINATION_LIMIT } from '../constants.js'
 import { createContinuationTokenHandler } from '../utils/continuationToken.js'
 import { Document, Filter, FindOptions, ObjectId } from 'mongodb'
 import { createCursorPage, CursorPage } from '../utils/cursorPage.js'
-import { NotFoundError } from '../errors.js'
 import { pipeStagesIf } from '../utils/pipeStagesIf.js'
 import { SongDocument } from '../lib/db/documents/SongDocument.js'
 import { parseKnown } from '../utils/parseKnown.js'
 import { getSongsContinuationTokenPayloadSchema, songDetailedResponseSchema, songSummaryResponseSchema } from '../schemas/songs.js'
 import { FindAllSongsContinuationTokenPayload, GetSongByIdQuery, GetSongsQuery, SongDetailedResponse, SongSummaryResponse } from '../types/songs.js'
 import { sliceForCursorPagination } from '../utils/sliceForCursorPagination.js'
+import { notFoundError } from '../errors.js'
 
 export class SongService {
   static async getSongById (query: GetSongByIdQuery): Promise<SongDetailedResponse> {
@@ -64,7 +64,7 @@ export class SongService {
         },
         userVersionId: userVersionId ? userVersionId.toHexString() : null
       })).next()
-    if (!song) throw new NotFoundError()
+    if (!song) throw notFoundError()
 
     return song
   }

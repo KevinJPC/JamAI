@@ -1,4 +1,4 @@
-import { formatZodIssues } from '@/shared/utils/formatZodIssues'
+import { flattenZodIssues } from '@chords-extractor/common/utils'
 
 // Base error just to assign the right name to any custom error
 export class CustomError extends Error {
@@ -12,13 +12,13 @@ export class ApiError extends CustomError {
   statusCode
   errorCode
   originalResponse
-  retryAfterMs
-  constructor ({ originalResponse, statusCode, errorCode, message, retryAfterMs }) {
+  details
+  constructor ({ originalResponse, statusCode, errorCode, message, details }) {
     super(message)
     this.errorCode = errorCode
     this.statusCode = statusCode
     this.originalResponse = originalResponse
-    this.retryAfterMs = retryAfterMs
+    this.details = details
   }
 }
 
@@ -33,7 +33,7 @@ export class SearchParamsValidationError extends AppError {
   }
 
   static fromZodError (error) {
-    return new SearchParamsValidationError(formatZodIssues(error.issues))
+    return new SearchParamsValidationError(flattenZodIssues(error.issues))
   }
 }
 
@@ -44,6 +44,6 @@ export class ParamsValidationError extends AppError {
   }
 
   static fromZodError (error) {
-    return new ParamsValidationError(formatZodIssues(error.issues))
+    return new ParamsValidationError(flattenZodIssues(error.issues))
   }
 }

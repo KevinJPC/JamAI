@@ -1,11 +1,12 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { QueryClientProvider } from '@tanstack/react-query'
+// eslint-disable-next-line no-unused-vars
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { AuthProvider } from '@/shared/auth/AuthProvider'
 import { useTrackScrollbarWidthCSSProperty } from '@/shared/hooks/useTrackScrollbarWidthCSSProperty'
 import { queryClient } from '@/shared/lib/queryClient'
-import { Toaster } from '@/shared/toaster/Toaster'
+import { ToastContainer } from '@/shared/toasts/ToastContainer'
 import { UserPreferencesProvider } from '@/shared/user-preferences/UserPreferencesProvider'
 
 export function AppProviders ({ children }) {
@@ -13,8 +14,6 @@ export function AppProviders ({ children }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-
-      <Toaster />
 
       <AuthProvider>
 
@@ -29,7 +28,9 @@ export function AppProviders ({ children }) {
         </SkeletonTheme>
 
       </AuthProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ToastContainer />
+
+      {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition='top-left' /> */}
     </QueryClientProvider>
   )
 }

@@ -1,6 +1,6 @@
 import { useYoutubeSearchQuery } from '@/features/search/queries'
 import { YoutubeSearchList } from '@/features/search/YoutubeSearchList'
-import { AlertBox } from '@/shared/components/AlertBox'
+import { PlaceholderContent } from '@/shared/components/PlaceholderContent'
 import { SongListSkeleton } from '@/shared/components/SongListSkeleton'
 import { paths } from '@/shared/config/paths'
 import { useRouteSearchParams } from '@/shared/hooks/useRouteSearchParams'
@@ -17,7 +17,7 @@ export function SearchView () {
       <main className='container search-main'>
         {searchQuery.data.hasResults && <YoutubeSearchList results={searchQuery.data.results} query={q} />}
         {!searchQuery.data.hasResults &&
-          <AlertBox
+          <PlaceholderContent
             title='No results'
             message='We couldn’t find anything. Try searching for something else.'
           />}

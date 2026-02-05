@@ -1,18 +1,27 @@
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { JOB_STATUS } from '@chords-extractor/common/constants'
+import { ERROR_CODES, JOB_STATUS } from '@chords-extractor/common/constants'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { createAnalysisJob, getAnalysisJob } from '@/features/search/services/jobs'
 import { POLLING_STATUS } from '@/features/search/YoutubeSearchJobManager/constants'
 import { YoutubeSearchJobManagerContext } from '@/features/search/YoutubeSearchJobManager/YoutubeSearchJobManagerContext'
 import { songKeys } from '@/shared/queries/songQueries'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
+import { isApiError } from '@/shared/utils/isApiError'
 
 const checkShouldPolling = (jobStatus) => {
   const shouldPolling = [JOB_STATUS.waiting, JOB_STATUS.processing].includes(jobStatus)
   return shouldPolling
 }
 const POLLING_DELAY_MS = 5000
+
+function customCheckShouldThrowOnError (error) {
+  if (!isApiError(error)) return true
+  if (error.errorCode === ERROR_CODES.FEATURE_UNAVAILABLE) return false
+  if (error.statusCode >= 500) return true
+  return false
+}
 
 const useCreateSongAnalysisJobPolling = ({ q = null }) => {
   const queryClient = useQueryClient()
@@ -21,7 +30,8 @@ const useCreateSongAnalysisJobPolling = ({ q = null }) => {
     mutationFn: ({ youtubeId }) => createAnalysisJob({ youtubeId }),
     onSuccess: async (job) => {
       queryClient.setQueryData(['job', job.id], job, {})
-    }
+    },
+    throwOnError: customCheckShouldThrowOnError,
   })
 
   const jobQuery = useQuery({
@@ -39,6 +49,7 @@ const useCreateSongAnalysisJobPolling = ({ q = null }) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: false,
+    throwOnError: customCheckShouldThrowOnError
   })
 
   const job = jobQuery.data
@@ -114,8 +125,8 @@ export function YoutubeSearchJobManagerProvider ({ children, query }) {
 
   useEffect(() => {
     if (songAnalysisJobPolling.status !== POLLING_STATUS.failed) return
-    const errorMessage = songAnalysisJobPolling.error?.errorMessage ?? 'We cannot analyze this song right now'
-    toast.error(errorMessage, { containerId: 'general' })
+    const errorMessage = songAnalysisJobPolling.error?.message ?? 'We cannot analyze this song right now'
+    toast.error(errorMessage, { containerId: GENERAL_CONTAINER_ID })
   }, [songAnalysisJobPolling.status])
 
   return (

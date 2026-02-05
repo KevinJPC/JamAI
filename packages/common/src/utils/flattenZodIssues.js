@@ -1,4 +1,4 @@
-export function formatZodIssues (issues) {
+export function flattenZodIssues (issues) {
   const rootIssues = []
   const fieldIssuesByKey = {}
 
@@ -20,6 +20,6 @@ export function formatZodIssues (issues) {
 
   return {
     root: rootIssues,
-    fields: Object.entries(fieldIssuesByKey)
+    fields: fieldIssuesByKey
   }
 }

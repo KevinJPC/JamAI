@@ -7,6 +7,7 @@ import { AuthModal } from '@/shared/auth/AuthModal'
 import { Button } from '@/shared/components/Button'
 import { HeartIcon } from '@/shared/components/icons'
 import { useDialog } from '@/shared/hooks/useDialog'
+import { GENERAL_CONTAINER_ID } from '@/shared/toasts/constants'
 
 import './FavoriteSongButton.css'
 
@@ -20,7 +21,7 @@ export function FavoriteSongButton ({ className, favoritesCount, userHasFavorite
     if (!auth.isAuthenticated) return setDialog(({ close }) => <AuthModal onClose={close} />)
     toggleSongFavoriteMutation.mutate({ songId, favorited: !userHasFavorited }, {
       onError: (_err, variables) => {
-        toast.error(`Error ${variables.favorited ? 'saving' : 'deleting'} favorite`, { containerId: 'general' })
+        toast.error(`Error ${variables.favorited ? 'saving' : 'deleting'} favorite`, { containerId: GENERAL_CONTAINER_ID })
       }
     })
   }

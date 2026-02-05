@@ -1,4 +1,3 @@
-import { InvalidYoutubeIdError, NotFoundError, YoutubeVideoTooLongError } from '../errors.js'
 import config from '../config.js'
 import { youtubeClient } from '../lib/YoutubeClient.js'
 import { analysesQueue } from '../lib/analysesQueue.js'
@@ -7,6 +6,7 @@ import { CreateYoutubeVideoAnalysisJobInput, GetYoutubeVideoAnalysisJobQuery, Jo
 import { JobState } from 'bullmq'
 import { parseKnown } from '../utils/parseKnown.js'
 import { jobResponseSchema } from '../schemas/analyses.js'
+import { invalidYoutubeIdError, notFoundError, youtubeVideoTooLongError } from '../errors.js'
 
 const MAX_YOUTUBE_VIDEO_DURATION = 900 // secs
 
@@ -17,8 +17,8 @@ export class AnalysesService {
     // the worker does validate the youtube video so the consumer doesnt waste api quota
     const video = (await youtubeClient().listMusicalVideos({ youtubeIds: [input.youtubeId] }))?.[0]
 
-    if (!video) throw new InvalidYoutubeIdError()
-    if (video.duration > MAX_YOUTUBE_VIDEO_DURATION) throw new YoutubeVideoTooLongError()
+    if (!video) throw invalidYoutubeIdError()
+    if (video.duration > MAX_YOUTUBE_VIDEO_DURATION) throw youtubeVideoTooLongError()
 
     const jobId = video.id
     const jobData = { video, overrideIfExists }
@@ -56,7 +56,7 @@ export class AnalysesService {
     const jobState = await analysesQueue().getJobState(query.id)
 
     // job doesnt exist
-    if (jobState === 'unknown') throw new NotFoundError()
+    if (jobState === 'unknown') throw notFoundError()
 
     let returnvalue = null
     if (jobState === 'completed') {
@@ -64,7 +64,7 @@ export class AnalysesService {
       // then no longer exists on the queue so return undefined,
       // the bullmq api does not provide a way to get job and its state in one call
       const job = await analysesQueue().getJob(query.id)
-      if (!job) throw new NotFoundError()
+      if (!job) throw notFoundError()
       returnvalue = job.returnvalue
     }
 

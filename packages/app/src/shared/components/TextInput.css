@@ -1,16 +1,22 @@
-.text-input__label {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
+
+.text-input {
     font-size: var(--text-md);
-    font-weight: 400;
+}
+
+.text-input__label {
+    display: inline-block;
+    margin-bottom: var(--space-xs);
+    font-weight: var(--fw-semibold);
 }
 
 .text-input__input {
+    width: 100%;
+    font-size: inherit;
+    font-family: var(--font-family);
     border-radius: 5px;
     border: 1px solid rgba(var(--blue-100));
     background-color: rgba(var(--blue-170), 1);
-    padding: .4rem .5rem;
+    padding: var(--space-sm);
     border: none;
 }
 
@@ -19,10 +25,26 @@
 }
 
 .text-input__input::placeholder {
-    color: rgba(var(--white), .6);
+    opacity: 8;
 }
+
+.text-input__wrapper[aria-invalid="true"] .text-input__input {
+    color: rgba(var(--red));
+    outline: 1px solid rgba(var(--red), .6);
+}
+
+.text-input__wrapper[aria-invalid="true"] .text-input__input:focus {
+    outline-color: rgba(var(--red));
+}
+
 
 .text-input__input:disabled {
     opacity: .6;
     cursor: not-allowed;
+}
+
+.field-error {
+    font-size: var(--text-sm);
+    color: rgba(var(--red));
+    margin-top: var(--space-sm)
 }

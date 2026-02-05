@@ -8,8 +8,8 @@
     display: flex;
     gap: 1rem;
     justify-content: end;
-  }
+}
   
-  .sign-up-form__button {
+.sign-up-form__button {
     flex: 0 1 100px;
-  }
+}
