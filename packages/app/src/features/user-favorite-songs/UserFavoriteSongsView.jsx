@@ -1,7 +1,7 @@
 import { useUserFavoriteSongsInfiniteQuery } from '@/features/user-favorite-songs/queries'
 import { UserFavoriteSongsList } from '@/features/user-favorite-songs/UserFavoriteSongsList'
-import { PlaceholderContent } from '@/shared/components/PlaceholderContent'
 import { InfinitePagination } from '@/shared/components/InfinitePagination'
+import { PlaceholderContent } from '@/shared/components/PlaceholderContent'
 import { SongListSkeleton } from '@/shared/components/SongListSkeleton'
 
 import './UserFavoriteSongsView.css'
