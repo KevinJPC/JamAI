@@ -28,12 +28,12 @@
     opacity: 8;
 }
 
-.text-input__wrapper[aria-invalid="true"] .text-input__input {
+.text-input[aria-invalid="true"] .text-input__input {
     color: rgba(var(--red));
     outline: 1px solid rgba(var(--red), .6);
 }
 
-.text-input__wrapper[aria-invalid="true"] .text-input__input:focus {
+.text-input[aria-invalid="true"] .text-input__input:focus {
     outline-color: rgba(var(--red));
 }
 
@@ -41,10 +41,4 @@
 .text-input__input:disabled {
     opacity: .6;
     cursor: not-allowed;
-}
-
-.field-error {
-    font-size: var(--text-sm);
-    color: rgba(var(--red));
-    margin-top: var(--space-sm)
 }

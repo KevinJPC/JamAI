@@ -1,0 +1,5 @@
+.field-error {
+    font-size: var(--text-sm);
+    color: rgba(var(--red));
+    margin-top: var(--space-sm)
+}

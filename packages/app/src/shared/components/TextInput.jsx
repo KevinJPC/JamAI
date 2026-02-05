@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 
+import { FieldErrors } from '@/shared/components/FieldErrors'
+
 import './TextInput.css'
 
 const inputTypes = {
@@ -30,7 +32,6 @@ export function TextInput ({
   const parsedInputType = inputTypes[type]
   if (!parsedInputType) throw new Error('Invalid input type for component')
   const hasError = errorMessages?.length > 0
-
   return (
     <div className={classNames('text-input', wrapperClassName)} aria-invalid={hasError}>
       {label && <label htmlFor={id} className={classNames('text-input__label', labelClassName)}>{label}</label>}
@@ -49,18 +50,5 @@ export function TextInput ({
       <FieldErrors errorMessages={errorMessages} />
     </div>
 
-  )
-}
-
-function FieldErrors ({ errorMessages }) {
-  if (!errorMessages || errorMessages.length === 0) return null
-  return (
-    errorMessages?.map((message, index) => (
-      <p
-        key={message}
-        className={classNames('field-error')}
-      >{message}
-      </p>
-    ))
   )
 }
