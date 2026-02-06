@@ -10,6 +10,9 @@ def download_youtube_audio(youtube_id, path):
 	url = f'https://www.youtube.com/watch?v={youtube_id}'
 	final_ext = "wav"
 	ydl_opts = {
+		'js_runtimes': {
+			'node': {}
+			},
 		'format': 'm4a/bestaudio/best',
 		"outtmpl": os.path.join(path, "%(id)s.%(ext)s"),
 		"final_ext": final_ext,

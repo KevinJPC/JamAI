@@ -1,8 +1,9 @@
 POST http://localhost:8080/api/jobs
 content-type: application/json
+x-csrf-token: 17803a11f0401f9161117c78c42c149356acf1fe837ebc549b9b0913de79f61db4715d257e217d5688149c0401f37a07c36449536531193672e6740ed4a2e9ce7b381bb079423fa68130918f4762c8e5a580a5f0e4392bdae6a83f49209b9cc27f731d29f39a64a5f9130890f1c830897bfea8449ac0fbf8dddbc16c1c1b7e2d
 
 {
-    "youtubeId": "LqYIKYEnX7Y",
+    "youtubeId": "Oa_RSwwpPaA",
     "overrideIfExists": true
 }
 ###

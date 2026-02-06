@@ -13,6 +13,7 @@ Content-Type: application/json
 
 POST http://localhost:8080/api/auth/local/signin HTTP/1.1
 Content-Type: application/json
+x-csrf-token: e23870bc763bc4a1fdaea9927383e81c88f9db636934139ba86907281dbde227698e0e4325ebc8b37c4fc32c469a56545d26f2610dd80979baa34d4c4038e61a1cfe75d02ed1e1cc3803e187025f1cbbc0050d2afc42ac8d070f2cb57c413320dfaf0085416384ddc9586efd8bdf5fa6f4cd2c597e5e9a7cbc9365971dc62e76
 
 {
     "email": "josue@test.com",
