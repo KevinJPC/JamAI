@@ -1,3 +1,4 @@
+scikit-learn==1.7.2 # a greater version breaks pumpp (crema's dependency)
 numpy==1.26.4
 tensorflow==2.15.1
 keras==2.15.0
