@@ -31,7 +31,8 @@ const booleanSchema = z.boolean()
 const configSchema = z.object({
   FRONTEND_URL: z.string().url(),
   ENV: z.enum(['development', 'production']),
-  DISABLE_ANALYSIS_JOBS: booleanSchema
+  DISABLE_ANALYSIS_JOBS: booleanSchema,
+  DISABLE_ANALYSIS_JOBS_RATE_LIMITER: booleanSchema
 }).and(envMongoConfigSchema)
   .and(envRedisConfigSchema)
   .and(youtubeConfig)
@@ -47,6 +48,7 @@ export default {
   env: parsedConfig.data.ENV,
   frontendUrl: parsedConfig.data.FRONTEND_URL,
   disableAnalysisJobs: parsedConfig.data.DISABLE_ANALYSIS_JOBS,
+  disableAnalysisJobsRateLimiter: parsedConfig.data.DISABLE_ANALYSIS_JOBS_RATE_LIMITER,
   redis: {
     url: parsedConfig.data.REDIS_URL,
     clientPrefix: parsedConfig.data.REDIS_CLIENT_PREFIX

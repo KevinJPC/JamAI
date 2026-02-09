@@ -27,7 +27,7 @@ router.get('/:id', protectedRouteHandler(
     })
   }))
 
-router.post('/', protectedRouteHandler(
+  router.post('/', protectedRouteHandler(
   async function createAnalysisJob (req, res) {
     if (config.disableAnalysisJobs) throw featureUnavailableError()
 
@@ -35,25 +35,24 @@ router.post('/', protectedRouteHandler(
       youtubeId: req.body.youtubeId,
       overrideIfExists: req.body.overrideIfExists
     })
-
-    const [allowed, rateLimiterRes] = await tryRateLimiterConsume(createYoutubeVideoAnalysisJobLimiter, req.session.user.id, 1)
-
-    if (!allowed) throw tooManyRequestsError({ retryAfterMs: rateLimiterRes.msBeforeNext })
-
-    let job
-
+    
+    if(!config.disableAnalysisJobsRateLimiter) {
+      const [allowed, rateLimiterRes]  = await tryRateLimiterConsume(createYoutubeVideoAnalysisJobLimiter, req.session.user.id, 1)
+      if (!allowed) throw tooManyRequestsError({ retryAfterMs: rateLimiterRes.msBeforeNext })
+    }
+    
     try {
-      job = await AnalysesService.createYoutubeVideoAnalysisJob(input)
+      const job = await AnalysesService.createYoutubeVideoAnalysisJob(input)
+      res.status(HTTP_CODES.CREATED).json({
+        status: 'success',
+        data: job
+      })
     } catch (error) {
-      if (error instanceof AppError && error.errorCode === ERROR_CODES.YOUTUBE_VIDEO_TOO_LONG) {
+      if (error instanceof AppError && error.errorCode === ERROR_CODES.YOUTUBE_VIDEO_TOO_LONG && !config.disableAnalysisJobsRateLimiter) {
         await createYoutubeVideoAnalysisJobLimiter.reward(req.session.user.id, 1)
       }
+      throw error
     }
-
-    res.status(HTTP_CODES.CREATED).json({
-      status: 'success',
-      data: job
-    })
   }))
 
 export default router
