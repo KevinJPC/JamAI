@@ -7,13 +7,13 @@
 
 <h2>JamAI - AI-powered YouTube chords extractor</h2>
 
-<a href="https://youtu.be/kZkiYJ2R8tY" title="JamAI Demo">
+<a href="https://youtu.be/kZkiYJ2R8tY" target="_blank" rel="noopener noreferrer" title="JamAI Demo">
    <img src ="https://i.ytimg.com/vi/kZkiYJ2R8tY/maxresdefault.jpg" width="80%" alt="JamAI demo thumbnail">
 </a>
 <br>
-<a href="https://youtu.be/kZkiYJ2R8tY">▶️ Video Demo</a> 
+<a href="https://youtu.be/kZkiYJ2R8tY" target="_blank" rel="noopener noreferrer">▶️ Video Demo</a> 
 |
-<a href="https://lively-bush-0824cc10f.2.azurestaticapps.net">🔗Live Demo</a>
+<a href="https://lively-bush-0824cc10f.2.azurestaticapps.net target="_blank" rel="noopener noreferrer"">🔗Live Demo</a>
 </div>
 
 ## 💡 Overview
