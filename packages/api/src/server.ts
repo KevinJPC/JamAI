@@ -8,10 +8,11 @@ import { setupJamAIMongoDB } from './lib/db/JamAIMongoDB.js'
 const startServer = async () => {
   try {
     const port = process.env.PORT || 3000
-
+    if (!config.disableAnalysisJobs) {
+      await setupAnalysesQueue(config.redis)
+      setupAnalysesWorker(config.redis)
+    }
     await setupJamAIMongoDB(config.mongo)
-    await setupAnalysesQueue(config.redis)
-    setupAnalysesWorker(config.redis)
     await setupYoutubeClient(config.youtube.yotubeApiKey)
 
     app.listen(port, () => {
